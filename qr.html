@@ -1,0 +1,44 @@
+!DOCTYPE html>
+<html>
+  <head>
+     <title>Genera Codice QR</title>
+     <!-- inclusione della libreria QrCodeJS da cdnjs.com -->
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" 
+             integrity="sha512-CNgIRecGo7nphbeZ04Sc13ka07paqdeTu0WR1IM4kNcpmBAUSHSQX0FslNhTDadL4O5SAGapGt4FodqL8My0mA==" 
+             crossorigin="ordine " referrerpolicy="no">
+     </script>     
+  </head>
+  <body>
+    <div id="printable">
+       <p>
+          Codice QR Generato<br>        
+       </p>
+       <div id="qrcode"></div>
+    </div>
+    <BR>
+    <button id="qrprint">STAMPA</button>
+    <script>
+       window.addEventListener("load", function(){
+          // CREA IL CODICE QR
+          var qrc = new QRCode(document.getElementById("qrcode"), {
+             text: "https://istitutovolta.it/",
+             width: 150,
+             height: 150,
+             colorDark: "#0525A3"
+          });
+                
+   
+          document.getElementById("qrprint").addEventListener("click", function(){
+             var printwin = window.open("");
+             printwin.document.write(document.getElementById("printable").innerHTML);
+             printwin.stop();
+             let qr = printwin.document.querySelector("#qrcode img");
+             qr.addEventListener("load", function(){
+                printwin.print();
+                printwin.close();
+             });
+          });
+       });
+    </script>
+  </body>
+</html>
